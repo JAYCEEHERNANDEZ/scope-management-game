@@ -30,7 +30,7 @@ const questions = {
     {
       word: "DELIVERABLE",
       hint: "A product produced as part of a project, such as hardware or software, planning documents, or meeting minutes."
-    },          
+    },
 
     {
       word: "INITIATION",
