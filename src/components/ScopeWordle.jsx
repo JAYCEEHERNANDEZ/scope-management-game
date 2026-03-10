@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import questions from "../data/questions.js";
+import bgVideo from "../animated.mp4";
 
 const MAX_ATTEMPTS = 5;
 
@@ -23,24 +24,19 @@ export default function ScopeWordle() {
   const WORD = game ? game.word.toUpperCase() : "";
 
   const startPart = (part) => {
-
     setSelectedPart(part);
     setGame(getRandomQuestion(part));
-
     setGuesses([]);
     setCurrentGuess("");
     setMessage("");
-
     setShowInstructions(false);
   };
 
   const resetGame = () => {
-
     setGame(getRandomQuestion(selectedPart));
     setGuesses([]);
     setCurrentGuess("");
     setMessage("");
-
   };
 
   const checkGuess = (guess) => {
@@ -115,11 +111,9 @@ export default function ScopeWordle() {
 
     if (!letter) return "bg-slate-700";
 
-    if (WORD[index] === letter)
-      return "bg-green-500 text-white";
+    if (WORD[index] === letter) return "bg-green-500 text-white";
 
-    if (WORD.includes(letter))
-      return "bg-yellow-400 text-black";
+    if (WORD.includes(letter)) return "bg-yellow-400 text-black";
 
     return "bg-gray-600 text-white";
 
@@ -167,19 +161,33 @@ export default function ScopeWordle() {
 
     <div className="min-h-screen flex justify-center items-start p-10 bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white">
 
-      {/* INSTRUCTIONS + PART SELECT */}
+      {/* INSTRUCTION MODAL WITH VIDEO */}
       {showInstructions && (
 
-        <div className="fixed inset-0 bg-black/10 flex items-center justify-center z-50">
+        <div className="fixed inset-0 flex items-center justify-center z-50 overflow-hidden">
 
-          <div className="bg-slate-800 border border-slate-700 rounded-xl shadow-2xl p-8 max-w-lg w-full text-center">
+          {/* VIDEO BACKGROUND */}
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute w-full h-full object-cover"
+          >
+            <source src={bgVideo} type="video/mp4" />
+          </video>
+
+          {/* DARK OVERLAY */}
+          <div className="absolute inset-0 bg-black/80"></div>
+
+          {/* PANEL */}
+          <div className="relative bg-slate-800/80 backdrop-blur-md border border-blue-700 rounded-xl shadow-2xl p-8 max-w-lg w-full text-center z-10">
 
             <h2 className="text-3xl font-bold text-indigo-400 mb-6">
               How to Play
             </h2>
 
             <div className="text-slate-300 space-y-3 text-left mb-6">
-
               <p>• Read the hint carefully.</p>
               <p>• Type letters using your keyboard.</p>
               <p>• Once typed, letters cannot be deleted.</p>
@@ -187,7 +195,6 @@ export default function ScopeWordle() {
               <p>• Green = correct position.</p>
               <p>• Yellow = wrong position.</p>
               <p>• Gray = not in the word.</p>
-
             </div>
 
             <p className="text-indigo-400 font-semibold mb-4">
@@ -230,7 +237,7 @@ export default function ScopeWordle() {
 
         <div className="flex gap-12 w-full max-w-7xl items-start">
 
-          {/* LEFT */}
+          {/* LEFT PANEL */}
           <div className="flex flex-col items-center flex-grow min-w-0">
 
             <h1 className="text-5xl font-extrabold text-indigo-400 mb-8">
