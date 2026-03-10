@@ -3,28 +3,44 @@ import questions from "../data/questions.js";
 
 const MAX_ATTEMPTS = 5;
 
-function getRandomQuestion() {
-  return questions[Math.floor(Math.random() * questions.length)];
+function getRandomQuestion(part) {
+  const list = questions[part];
+  return list[Math.floor(Math.random() * list.length)];
 }
 
 export default function ScopeWordle() {
 
-  const [game, setGame] = useState(getRandomQuestion());
+  const [selectedPart, setSelectedPart] = useState(null);
+  const [game, setGame] = useState(null);
+
   const [guesses, setGuesses] = useState([]);
   const [currentGuess, setCurrentGuess] = useState("");
   const [message, setMessage] = useState("");
   const [learned, setLearned] = useState([]);
 
-  // NEW: instructions popup
   const [showInstructions, setShowInstructions] = useState(true);
 
-  const WORD = game.word.toUpperCase();
+  const WORD = game ? game.word.toUpperCase() : "";
 
-  const resetGame = () => {
-    setGame(getRandomQuestion());
+  const startPart = (part) => {
+
+    setSelectedPart(part);
+    setGame(getRandomQuestion(part));
+
     setGuesses([]);
     setCurrentGuess("");
     setMessage("");
+
+    setShowInstructions(false);
+  };
+
+  const resetGame = () => {
+
+    setGame(getRandomQuestion(selectedPart));
+    setGuesses([]);
+    setCurrentGuess("");
+    setMessage("");
+
   };
 
   const checkGuess = (guess) => {
@@ -61,7 +77,7 @@ export default function ScopeWordle() {
 
     const handleKeyDown = (e) => {
 
-      if (showInstructions) return;
+      if (showInstructions || !game) return;
 
       if (e.key === "Backspace") {
         setMessage("Letters cannot be deleted");
@@ -93,7 +109,7 @@ export default function ScopeWordle() {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
 
-  }, [currentGuess, guesses, WORD, showInstructions]);
+  }, [currentGuess, guesses, WORD, showInstructions, game]);
 
   const getColor = (letter, index) => {
 
@@ -151,10 +167,10 @@ export default function ScopeWordle() {
 
     <div className="min-h-screen flex justify-center items-start p-10 bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white">
 
-      {/* INSTRUCTIONS MODAL */}
+      {/* INSTRUCTIONS + PART SELECT */}
       {showInstructions && (
 
-        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-black/10 flex items-center justify-center z-50">
 
           <div className="bg-slate-800 border border-slate-700 rounded-xl shadow-2xl p-8 max-w-lg w-full text-center">
 
@@ -162,30 +178,46 @@ export default function ScopeWordle() {
               How to Play
             </h2>
 
-            <div className="text-slate-300 space-y-4 text-left">
+            <div className="text-slate-300 space-y-3 text-left mb-6">
 
               <p>• Read the hint carefully.</p>
-
               <p>• Type letters using your keyboard.</p>
-
-              <p>• Once a letter is typed, it <b>cannot be deleted.</b></p>
-
-              <p>• You have <b>{MAX_ATTEMPTS} attempts</b> to guess the word.</p>
-
-              <p>• Green = correct letter and position.</p>
-
-              <p>• Yellow = correct letter but wrong position.</p>
-
-              <p>• Gray = letter not in the word.</p>
+              <p>• Once typed, letters cannot be deleted.</p>
+              <p>• You have <b>{MAX_ATTEMPTS} attempts</b>.</p>
+              <p>• Green = correct position.</p>
+              <p>• Yellow = wrong position.</p>
+              <p>• Gray = not in the word.</p>
 
             </div>
 
-            <button
-              onClick={() => setShowInstructions(false)}
-              className="mt-8 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 rounded-lg font-semibold transition"
-            >
-              Start Game
-            </button>
+            <p className="text-indigo-400 font-semibold mb-4">
+              Select Part
+            </p>
+
+            <div className="flex gap-4 justify-center">
+
+              <button
+                onClick={() => startPart("part1")}
+                className="px-5 py-3 bg-indigo-600 hover:bg-indigo-700 rounded-lg"
+              >
+                Part 1
+              </button>
+
+              <button
+                onClick={() => startPart("part2")}
+                className="px-5 py-3 bg-indigo-600 hover:bg-indigo-700 rounded-lg"
+              >
+                Part 2
+              </button>
+
+              <button
+                onClick={() => startPart("part3")}
+                className="px-5 py-3 bg-indigo-600 hover:bg-indigo-700 rounded-lg"
+              >
+                Part 3
+              </button>
+
+            </div>
 
           </div>
 
@@ -193,80 +225,79 @@ export default function ScopeWordle() {
 
       )}
 
-      {/* MAIN LAYOUT */}
-      <div className="flex gap-12 w-full max-w-7xl items-start">
+      {/* MAIN GAME */}
+      {game && (
 
-        {/* LEFT PANEL */}
-        <div className="flex flex-col items-center flex-grow min-w-0">
+        <div className="flex gap-12 w-full max-w-7xl items-start">
 
-          <h1 className="text-5xl font-extrabold text-indigo-400 mb-8 tracking-wide">
-            Scope Wordle
-          </h1>
+          {/* LEFT */}
+          <div className="flex flex-col items-center flex-grow min-w-0">
 
-          {/* Hint */}
-          <div className="bg-slate-800 border border-slate-700 shadow-xl p-6 rounded-xl mb-8 max-w-xl text-center">
+            <h1 className="text-5xl font-extrabold text-indigo-400 mb-8">
+              Scope Wordle
+            </h1>
 
-            <p className="text-indigo-400 font-semibold text-lg mb-2">
-              Hint
-            </p>
+            <div className="bg-slate-800 border border-slate-700 shadow-xl p-6 rounded-xl mb-8 max-w-xl text-center">
 
-            <p className="text-slate-200 text-lg">
-              {game.hint}
-            </p>
-
-          </div>
-
-          {/* Board */}
-          <div className="space-y-3 mb-6 overflow-x-auto">
-            {rows}
-          </div>
-
-          {/* Message */}
-          {message && (
-            <div className="px-6 py-2 rounded-full bg-indigo-600 text-white font-semibold shadow-lg">
-              {message}
-            </div>
-          )}
-
-          {/* Instructions Reminder */}
-          
-        </div>
-
-        {/* RIGHT PANEL */}
-        <div className="w-[420px] flex-shrink-0">
-
-          <div className="w-full bg-slate-800 border border-slate-700 rounded-xl shadow-xl p-6">
-
-            <h2 className="text-xl font-bold text-indigo-400 mb-4">
-              Learned Concepts
-            </h2>
-
-            {learned.length === 0 && (
-              <p className="text-slate-400 text-sm">
-                Correct answers will appear here
+              <p className="text-indigo-400 font-semibold text-lg mb-2">
+                Hint
               </p>
+
+              <p className="text-slate-200 text-lg">
+                {game.hint}
+              </p>
+
+            </div>
+
+            <div className="space-y-3 mb-6">
+              {rows}
+            </div>
+
+            {message && (
+              <div className="px-6 py-2 rounded-full bg-indigo-600 text-white font-semibold shadow-lg">
+                {message}
+              </div>
             )}
 
-            <div className="space-y-4">
+          </div>
 
-              {learned.map((item, index) => (
+          {/* RIGHT PANEL */}
+          <div className="w-[420px] flex-shrink-0">
 
-                <div
-                  key={index}
-                  className="border border-slate-700 rounded-lg p-4 bg-slate-900"
-                >
+            <div className="bg-slate-800 border border-slate-700 rounded-xl shadow-xl p-6">
 
-                  <p className="font-bold text-indigo-400">
-                    {item.word}
-                  </p>
+              <h2 className="text-xl font-bold text-indigo-400 mb-4">
+                Learned Concepts
+              </h2>
 
-                  <p className="text-sm text-slate-300">
-                    {item.hint}
-                  </p>
+              {learned.length === 0 && (
+                <p className="text-slate-400 text-sm">
+                  Correct answers will appear here
+                </p>
+              )}
 
-                </div>
+              <div className="space-y-4">
 
-              ))}
+                {learned.map((item, index) => (
+
+                  <div
+                    key={index}
+                    className="border border-slate-700 rounded-lg p-4 bg-slate-900"
+                  >
+
+                    <p className="font-bold text-indigo-400">
+                      {item.word}
+                    </p>
+
+                    <p className="text-sm text-slate-300">
+                      {item.hint}
+                    </p>
+
+                  </div>
+
+                ))}
+
+              </div>
 
             </div>
 
@@ -274,7 +305,7 @@ export default function ScopeWordle() {
 
         </div>
 
-      </div>
+      )}
 
     </div>
 
