@@ -130,7 +130,7 @@ export default function ScopeWordle() {
           return (
             <div
               key={i}
-              className={`w-16 h-16 flex items-center justify-center rounded-xl text-2xl font-bold border border-slate-600 shadow-md
+              className={`w-15 h-15 flex items-center justify-center rounded-xl text-2xl font-bold border border-slate-600 shadow-md
               ${letter ? getColor(letter, i) : "bg-slate-700 text-white"}`}
             >
               {letter}

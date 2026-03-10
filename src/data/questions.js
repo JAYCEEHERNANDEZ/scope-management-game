@@ -28,11 +28,6 @@ const questions = {
     },
 
     {
-      word: "DELIVERABLE",
-      hint: "A product produced as part of a project, such as hardware or software, planning documents, or meeting minutes."
-    },
-
-    {
       word: "INITIATION",
       hint: "Committing the organization to begin the next phase of the project"
     }
@@ -56,8 +51,13 @@ const questions = {
     },
 
     {
-      word: "CHARTER",
+      word: "PROJECTCHARTER",
       hint: "A document that formally recognizes the existence of a project."
+    },
+
+    {
+      word: "PROJECTPRODUCT",
+      hint: "A brief summary of the product description"
     },
 
     {
@@ -70,8 +70,13 @@ const questions = {
   part3: [
 
     {
-      word: "CONTROL",
+      word: "CHANGECONTROL",
       hint: "Managing and controlling changes to the project scope."
+    },
+
+    {
+      word: "SCOPECREEP",
+      hint: "Many IT projects suffer from THIS and poor scope verification"
     },
 
     {
