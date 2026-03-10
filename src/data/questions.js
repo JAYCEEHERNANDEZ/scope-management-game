@@ -4,12 +4,12 @@ const questions = {
 
     {
       word: "SCOPE",
-      hint: "The work required to deliver a product with specified features."
+      hint: "refers to all the work involved in creating the products of the project and the processes used to create them."
     },
 
     {
-      word: "PLAN",
-      hint: "A document describing how project scope will be managed."
+      word: "PLANNING",
+      hint: "Developing a written scope statement as the basis for future project decisions"
     },
 
     {
@@ -25,8 +25,17 @@ const questions = {
     {
       word: "PRODUCT",
       hint: "The features and functions that will be included in the final result of the project."
-    }
+    },
 
+    {
+      word: "DELIVERABLE",
+      hint: "A product produced as part of a project, such as hardware or software, planning documents, or meeting minutes."
+    },          
+
+    {
+      word: "INITIATION",
+      hint: "Committing the organization to begin the next phase of the project"
+    }
   ],
 
   part2: [
