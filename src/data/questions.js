@@ -18,7 +18,7 @@ const questions = {
     },
 
     {
-      word: "PROJECT",
+      word: "PROJECTSCOPE",
       hint: "A temporary effort"
     },
 
