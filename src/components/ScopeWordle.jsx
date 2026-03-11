@@ -165,8 +165,8 @@ export default function ScopeWordle() {
               <p>
                 • You have <b>{MAX_ATTEMPTS} attempts</b>.
               </p>
-              <p>• Green = correct position.</p>
-              <p>• Yellow = wrong position.</p>
+              <p>• Green = correct letter and position.</p>
+              <p>• Yellow = correct letter but in wrong position.</p>
               <p>• Gray = not in the word.</p>
             </div>
 
