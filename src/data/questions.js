@@ -4,65 +4,56 @@ const questions = {
 
     {
       word: "SCOPE",
-      hint: "refers to all the work involved in creating the products of the project and the processes used to create them."
+      hint: "Work involved"
     },
 
     {
       word: "PLANNING",
-      hint: "Developing a written scope statement as the basis for future project decisions"
+      hint: "Written scope"
     },
 
     {
       word: "WBS",
-      hint: "A deliverable-oriented grouping of project elements that organizes project work."
+      hint: "Organizes project work"
     },
 
     {
       word: "PROJECT",
-      hint: "A temporary effort undertaken to create a unique product or service."
+      hint: "A temporary effort"
     },
 
     {
       word: "PRODUCT",
-      hint: "The features and functions that will be included in the final result of the project."
+      hint: "Features and functions"
     },
 
     {
       word: "INITIATION",
-      hint: "Committing the organization to begin the next phase of the project"
+      hint: "Formally recognizing that a project exists."
     }
   ],
 
   part2: [
 
-    {
-      word: "INITIATION",
-      hint: "The process of formally recognizing that a project exists."
-    },
-
-    {
-      word: "PLANNING",
-      hint: "The process of developing a written scope statement for project decisions."
-    },
 
     {
       word: "DEFINITION",
-      hint: "Breaking down major project deliverables into smaller manageable components."
+      hint: "Breaking down major project deliverables"
     },
 
     {
       word: "PROJECTCHARTER",
-      hint: "A document that formally recognizes the existence of a project."
+      hint: "Formally recognizes the existence of a project."
     },
 
     {
       word: "PROJECTPRODUCT",
-      hint: "A brief summary of the product description"
+      hint: "Product description"
     },
 
     {
       word: "DELIVERABLE",
-      hint: "A measurable output or result that must be produced to complete a project."
+      hint: "Output or result of a project."
     }
 
   ],
@@ -71,32 +62,27 @@ const questions = {
 
     {
       word: "CHANGECONTROL",
-      hint: "Managing and controlling changes to the project scope."
+      hint: "Managing and controlling change"
     },
 
     {
       word: "SCOPECREEP",
-      hint: "Many IT projects suffer from THIS and poor scope verification"
+      hint: "Poor scope verification"
     },
 
     {
       word: "VERIFICATION",
-      hint: "Formal acceptance of the completed project scope by stakeholders."
-    },
-
-    {
-      word: "ASSUMPTION",
-      hint: "A factor considered to be true for planning purposes but involves risk."
+      hint: "Formal acceptance of the project"
     },
 
     {
       word: "CONSTRAINT",
-      hint: "A factor that limits the project team’s options such as budget or schedule."
+      hint: "Limits the project team’s"
     },
 
     {
       word: "INSPECTION",
-      hint: "An activity used to review and verify work results during scope verification."
+      hint: "Used to review and verify work results"
     }
 
   ]
