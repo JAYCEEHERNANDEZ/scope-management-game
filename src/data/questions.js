@@ -52,7 +52,7 @@ const questions = {
     },
 
     {
-      word: "DELIVERABLE",
+      word: "DELIVERABLES",
       hint: "Output or result of a project."
     }
 
@@ -76,7 +76,7 @@ const questions = {
     },
 
     {
-      word: "CONSTRAINT",
+      word: "CONSTRAINTS",
       hint: "Limits the project team’s"
     },
 
